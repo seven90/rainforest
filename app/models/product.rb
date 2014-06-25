@@ -9,5 +9,6 @@ class Product < ActiveRecord::Base
   end
 
   has_many :reviews
+  has_many :users, :through => :reviews
 
 end

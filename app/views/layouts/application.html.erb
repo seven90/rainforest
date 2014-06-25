@@ -12,12 +12,20 @@
   </head>
 
   <body>
+
+
     <nav class="top-bar" data-topbar>
   <ul class="title-area">
     <li class="name">
       <h1><a href="#">rainForest</a></h1>
     </li>
-  
+  <p class="userinfo">
+        <% if current_user %>
+          Signed in as <%= current_user.name %>. <%= link_to "Log out", session_path("current"), :method => :delete %>
+          <% else %>
+            <%= link_to "Log In", new_session_path %> or <%= link_to "Sign up", new_user_path %>
+          <% end%>
+    </p>
     <%= javascript_include_tag "application" %>
     <% if flash[:notice] %>
       <p id="notice"><%= flash[:notice] %></p>
@@ -28,13 +36,8 @@
     
     <%= yield %>
 
-    <p class="userinfo">
-        <% if current_user %>
-          Signed in as <%= current_user.email %>. <%= link_to "Log out", session_path("current"), :method => :delete %>
-          <% else %>
-            <%= link_to "Log In", new_session_path %> or <%= link_to "Sign up", new_user_path %>
-          <% end%>
+   
 
-    </p>
+ 
   </body>
 </html>
