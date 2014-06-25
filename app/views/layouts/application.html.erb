@@ -17,7 +17,24 @@
     <li class="name">
       <h1><a href="#">rainForest</a></h1>
     </li>
-    <%= yield %>
+  
     <%= javascript_include_tag "application" %>
+    <% if flash[:notice] %>
+      <p id="notice"><%= flash[:notice] %></p>
+      <%end%>
+    <% if flash[:alert] %>
+      <p id="alert"><%= flash[:alert] %></p>
+    <%end%>
+    
+    <%= yield %>
+
+    <p class="userinfo">
+        <% if current_user %>
+          Signed in as <%= current_user.email %>. <%= link_to "Log out", session_path("current"), :method => :delete %>
+          <% else %>
+            <%= link_to "Log In", new_session_path %> or <%= link_to "Sign up", new_user_path %>
+          <% end%>
+
+    </p>
   </body>
 </html>
