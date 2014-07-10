@@ -2,7 +2,17 @@ class ProductsController < ApplicationController
   before_filter :ensure_logged_in, :only => [:show]
 
   def index
-    @products = Product.all
+    @products = if params[:search]
+      Product.where("LOWER(name) LIKE LOWER(?)", "%#{params[:search]}%")
+    else
+      @products = Product.order('products.created_at DESC').page(params[:page])
+    end
+
+    respond_to do |format|
+      format.js
+      format.html
+    end
+    
   end
 
   def show
